@@ -1,69 +1,66 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import GalleryGrid from "./components/GalleryGrid";
+import Hero from "./components/Hero";
+import PackageCard from "./components/PackageCard";
+import { packages } from "./data/package";
+import Testimonial from "./components/Testimonial";
+import { testimonials } from "./data/testimonial";
 
-export default function Home() {
+export default function Home(){
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.js</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+    <Hero/>
+
+    <section className="section">
+      <div className="container">
+        <h2 className="section-title">Featured a work</h2>
+        <p className="section-sub">A glimpse of the love stories we've told.</p>
+        <GalleryGrid limit= {6}/>
+        <div className="center">
+          <Link href={"/gallery"} className="btn btn-outline-dark">
+          See Full Gallery
+          </Link>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+    </section>
+
+    <section className="section alt">
+        <div className="container">
+          <h2 className="section-title">Our Packages</h2>
+          <p className="section-sub">Simple, transparent pricing for every celebration.</p>
+          <div className="package-grid">
+            {packages.map((p) => (
+              <PackageCard key={p.id} pkg={p} />
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+       <section className="section">
+        <div className="container">
+          <h2 className="section-title">Happy Couples</h2>
+          <div className="testimonial-grid">
+            {testimonials.slice(0, 2).map((t) => (
+              <Testimonial key={t.id} t={t} />
+            ))}
+          </div>
+          <div className="center">
+            <Link href="/testimonials" className="btn btn-outline-dark">
+              Read More Reviews
+            </Link>
+          </div>
+        </div>
+      </section>
+
+       <section className="cta">
+        <div className="container center">
+          <h2>Ready to plan your big day?</h2>
+          <p>Dates fill up fast. Let's talk about your story.</p>
+          <Link href="/contact" className="btn btn-primary">
+            Get in Touch
+          </Link>
+        </div>
+      </section>
+    </>
+  )
 }
